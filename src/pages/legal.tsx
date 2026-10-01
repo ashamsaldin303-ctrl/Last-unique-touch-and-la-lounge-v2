@@ -152,7 +152,7 @@ export default function LegalPage({ doc }: { doc: LegalDoc }) {
         eyebrow={t('brand.lut')}
         title={t(cfg.titleKey)}
         subtitle={t(cfg.subtitleKey)}
-        className="pt-14 sm:pt-20"
+        className="pt-24 sm:pt-28"
       />
 
       {/* ============ Document card ============ */}

@@ -208,7 +208,7 @@ export default function AboutPage() {
   return (
     <div className="bg-background">
       {/* ============ Page header ============ */}
-      <PageHeader eyebrow={t('brand.lut')} title={t('about.title')} subtitle={t('about.subtitle')} className="pt-14 sm:pt-20" />
+      <PageHeader eyebrow={t('brand.lut')} title={t('about.title')} subtitle={t('about.subtitle')} className="pt-24 sm:pt-28" />
 
       {/* ============ Dark hero band — brand statement + framed image ============ */}
       <section className="hero-bg-gradient relative overflow-hidden" aria-label={t('about.title')}>

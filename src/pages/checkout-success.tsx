@@ -65,7 +65,7 @@ export default function CheckoutSuccessPage() {
   ]
 
   return (
-    <div className="relative mx-auto w-full max-w-2xl px-4 py-16 text-center sm:px-6 sm:py-20">
+    <div className="relative mx-auto w-full max-w-2xl px-4 pt-24 pb-16 text-center sm:px-6 sm:pt-28 sm:pb-20">
       {/* Soft gold radial glow */}
       <div
         aria-hidden="true"

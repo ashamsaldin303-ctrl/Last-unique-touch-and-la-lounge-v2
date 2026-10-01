@@ -157,7 +157,7 @@ export default function ContactPage() {
         eyebrow={t('brand.lut')}
         title={t('contact.title')}
         subtitle={t('contact.subtitle')}
-        className="pt-14 sm:pt-20"
+        className="pt-24 sm:pt-28"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">

@@ -76,7 +76,7 @@ export default function ProductDetailPage({ slug }: { slug: string }) {
 
   if (notFound || !product) {
     return (
-      <div className="relative mx-auto flex min-h-[60vh] w-full max-w-2xl flex-col items-center justify-center px-4 text-center">
+      <div className="relative mx-auto flex min-h-[60vh] w-full max-w-2xl flex-col items-center justify-center px-4 pt-24 text-center">
         <div className="catalog-ambient" aria-hidden="true" />
         <div className="relative z-10 flex flex-col items-center">
           <div className="mb-6 flex size-16 items-center justify-center rounded-full border border-gold/35 bg-gold/10">
@@ -103,7 +103,7 @@ export default function ProductDetailPage({ slug }: { slug: string }) {
   const images = product.images?.length ? product.images : []
 
   return (
-    <div className="relative mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-8 sm:px-6 sm:pt-10">
+    <div className="relative mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-24 sm:px-6 sm:pt-28">
       {/* Ambient gold backdrop (decorative) */}
       <div className="catalog-ambient" aria-hidden="true" />
 
@@ -543,7 +543,7 @@ function Gallery({
 
 function ProductDetailSkeleton() {
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-8 sm:px-6 sm:pt-10" aria-hidden="true">
+    <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 sm:pt-28" aria-hidden="true">
       <div className="shimmer mb-6 h-4 w-48 rounded" />
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
         <div>

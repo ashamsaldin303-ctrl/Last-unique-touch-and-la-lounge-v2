@@ -16,7 +16,7 @@ export default function NotFoundPage() {
   const { navigate } = useRouter()
   const { t } = useI18n()
   return (
-    <div className="relative flex min-h-[75vh] flex-col items-center justify-center overflow-hidden px-4 text-center">
+    <div className="relative flex min-h-[75vh] flex-col items-center justify-center overflow-hidden px-4 pt-24 text-center">
       <div className="catalog-ambient" aria-hidden="true" />
       <div className="relative z-10 flex flex-col items-center">
         <motion.div

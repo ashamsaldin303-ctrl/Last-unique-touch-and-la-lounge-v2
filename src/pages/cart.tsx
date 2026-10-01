@@ -62,7 +62,7 @@ export default function CartPage() {
      rehydrates the persisted items. */
   if (!hydrated) {
     return (
-      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6" aria-busy="true">
+      <div className="mx-auto w-full max-w-7xl px-4 pt-24 pb-16 sm:px-6" aria-busy="true">
         <div className="space-y-4" aria-hidden="true">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex gap-4 rounded-md border border-border bg-card p-4">
@@ -85,7 +85,7 @@ export default function CartPage() {
   /* Empty cart */
   if (items.length === 0) {
     return (
-      <div className="mx-auto flex min-h-[60vh] w-full max-w-2xl flex-col items-center justify-center px-4 text-center">
+      <div className="mx-auto flex min-h-[60vh] w-full max-w-2xl flex-col items-center justify-center px-4 pt-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -114,7 +114,7 @@ export default function CartPage() {
   const totals = cartTotals(items)
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14">
+    <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 sm:pt-28">
       {/* Header */}
       <Reveal className="mb-8">
         <div className="mb-2 flex items-center gap-2">

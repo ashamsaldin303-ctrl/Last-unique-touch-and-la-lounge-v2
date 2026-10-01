@@ -130,7 +130,7 @@ export default function PaymentPage() {
   const displayTotal = cartTotalsValue && cartTotalsValue.total > 0 ? cartTotalsValue.total : order.total
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14">
+    <div className="mx-auto w-full max-w-5xl px-4 pb-16 pt-24 sm:px-6 sm:pt-28">
       {/* Header */}
       <Reveal className="mb-8">
         <div className="mb-2 flex items-center gap-2">

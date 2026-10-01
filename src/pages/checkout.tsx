@@ -87,7 +87,7 @@ export default function CheckoutPage() {
   /* Hydration guard */
   if (!hydrated) {
     return (
-      <div className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6" aria-busy="true">
+      <div className="mx-auto w-full max-w-7xl px-4 pt-24 pb-16 sm:px-6" aria-busy="true">
         <div className="shimmer h-10 w-64 rounded" aria-hidden="true" />
         <span className="sr-only">{t('common.loading')}</span>
       </div>
@@ -99,7 +99,7 @@ export default function CheckoutPage() {
      cart page's empty-state pattern). */
   if (items.length === 0) {
     return (
-      <div className="mx-auto flex min-h-[60vh] w-full max-w-xl flex-col items-center justify-center px-4 py-12 text-center">
+      <div className="mx-auto flex min-h-[60vh] w-full max-w-xl flex-col items-center justify-center px-4 pt-24 pb-12 text-center">
         <motion.div
           initial={{ opacity: 0, y: 18, scale: 0.985 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -198,7 +198,7 @@ export default function CheckoutPage() {
   const errIcon = <AlertCircle className="size-3.5 shrink-0" aria-hidden="true" />
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-10 sm:px-6 sm:pt-14">
+    <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-24 sm:px-6 sm:pt-28">
       {/* Header */}
       <Reveal className="mb-8">
         <div className="mb-2 flex items-center gap-2">

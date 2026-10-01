@@ -134,7 +134,7 @@ export default function HomePage() {
         {/* Top: Brand logo + tagline */}
         <motion.div
           style={{ opacity }}
-          className="relative z-40 pt-4 sm:pt-20 pb-1 sm:pb-4 text-center px-4 shrink-0"
+          className="relative z-40 pt-24 sm:pt-24 pb-1 sm:pb-4 text-center px-4 shrink-0"
         >
           <div
             className="animate-hero-down flex items-center justify-center gap-2 sm:gap-3 mb-2"
