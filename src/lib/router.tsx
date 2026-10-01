@@ -31,6 +31,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -283,9 +284,13 @@ function setLinkTag(rel: string, href: string) {
 }
 
 export function RouterProvider({ children }: { children: ReactNode }) {
-  const [route, setRoute] = useState<RouteState>(() => {
-    if (typeof window === 'undefined') return { locale: DEFAULT_LOCALE, path: '/', query: '' }
-    return parseHash(window.location.hash)
+  /* Hydration-safe: the FIRST client render must equal the SSR tree
+     (always the home route). The real hash is applied in a layout effect
+     before paint — no flash, no hydration mismatch (visual-audit fix). */
+  const [route, setRoute] = useState<RouteState>({
+    locale: DEFAULT_LOCALE,
+    path: '/',
+    query: '',
   })
   const { setLocale: setI18nLocale } = useI18n()
 
@@ -318,9 +323,10 @@ export function RouterProvider({ children }: { children: ReactNode }) {
     setMetaTag('name', 'theme-color', THEME_BG[resolveBrandFromPath(route.path)] ?? '#faf6ef')
   }, [route.path, route.locale])
 
-  // Sync initial hash → router (covers deep links — external state sync)
-  useEffect(() => {
+  // Sync initial hash → router before paint (deep links, no flash)
+  useLayoutEffect(() => {
     const initial = parseHash(window.location.hash)
+    // One-shot sync from the URL (external store) before paint.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setRoute(initial)
     setI18nLocale(initial.locale)

@@ -2344,8 +2344,8 @@ body::after {
 .footer-wordmark {
   display: inline-block;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 0.6rem + 7.4vw, 7rem);
-  letter-spacing: 0.12em;
+  font-size: clamp(1.3rem, 8vw, 7rem);
+  letter-spacing: 0.08em;
   white-space: nowrap;
   color: transparent;
   -webkit-text-stroke: 1px rgba(184, 145, 90, 0.38);

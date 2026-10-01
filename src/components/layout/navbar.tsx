@@ -51,6 +51,10 @@ export function Navbar() {
     isHomePage(path) ||
     path === '/last-unique-touch' ||
     path === '/your-birthday'
+  /* La Lounge's hero is light "blueprint paper" while the brand tokens are
+     dark — unscrolled nav chrome must flip to ink there (visual-audit fix). */
+  const lightHero = path === '/la-lounge'
+  const navOnLight = lightHero && !scrolled
 
   const brand = resolveBrandFromPath(path)
   const homePage = isHomePage(path)
@@ -163,9 +167,7 @@ export function Navbar() {
       'relative text-sm font-medium tracking-wide transition-colors duration-300 group',
       active
         ? 'text-gold'
-        : darkHero || scrolled
-          ? 'text-paper/70 hover:text-paper'
-          : 'text-foreground/70 hover:text-foreground'
+        : (darkHero || scrolled ? 'text-paper/70 hover:text-paper' : navOnLight ? 'text-[#1a1a2e]/70 hover:text-[#1a1a2e]' : 'text-foreground/70 hover:text-foreground')
     )
 
   return (
@@ -195,7 +197,7 @@ export function Navbar() {
                     <span
                       className={cn(
                         'hidden sm:inline text-[10px] lg:text-xs tracking-[0.2em] uppercase transition-colors duration-300',
-                        darkHero || scrolled ? 'text-paper/60' : 'text-foreground/60'
+                        (darkHero || scrolled ? 'text-paper/60' : navOnLight ? 'text-[#1a1a2e]/60' : 'text-foreground/60')
                       )}
                     >
                       {wordmark.subtitle}
@@ -243,9 +245,7 @@ export function Navbar() {
                   aria-label={t('nav.toggleTheme')}
                   className={cn(
                     'flex items-center justify-center w-11 h-11 rounded-full transition-colors cursor-pointer bg-transparent border-0',
-                    darkHero || scrolled
-                      ? 'text-paper/70 hover:text-gold hover:bg-paper/10'
-                      : 'text-foreground/70 hover:text-gold hover:bg-foreground/10'
+                    (darkHero || scrolled ? 'text-paper/70 hover:text-gold hover:bg-paper/10' : navOnLight ? 'text-[#1a1a2e]/70 hover:text-gold hover:bg-paper/10' : 'text-foreground/70 hover:text-gold hover:bg-foreground/10')
                   )}
                 >
                   {resolvedTheme === 'dark' ? (
@@ -264,7 +264,7 @@ export function Navbar() {
                 whileTap={{ scale: 0.94 }}
                 className={cn(
                   'flex items-center gap-1.5 px-3 py-2 min-h-[44px] text-xs font-medium transition-colors cursor-pointer bg-transparent border-0',
-                  darkHero || scrolled ? 'text-paper/70 hover:text-gold' : 'text-foreground/70 hover:text-gold'
+                  (darkHero || scrolled ? 'text-paper/70 hover:text-gold' : navOnLight ? 'text-[#1a1a2e]/70 hover:text-gold' : 'text-foreground/70 hover:text-gold')
                 )}
                 aria-label="Switch language"
               >
@@ -276,9 +276,7 @@ export function Navbar() {
                 onClick={() => navigate(brandCartHref)}
                 className={cn(
                   'relative flex items-center justify-center w-11 h-11 rounded-full transition-colors cursor-pointer bg-transparent border-0',
-                  darkHero || scrolled
-                    ? 'text-paper/70 hover:text-gold hover:bg-paper/10'
-                    : 'text-foreground/70 hover:text-gold hover:bg-foreground/10'
+                  (darkHero || scrolled ? 'text-paper/70 hover:text-gold hover:bg-paper/10' : navOnLight ? 'text-[#1a1a2e]/70 hover:text-gold hover:bg-paper/10' : 'text-foreground/70 hover:text-gold hover:bg-foreground/10')
                 )}
                 aria-label={t('cart.title')}
               >
@@ -300,7 +298,7 @@ export function Navbar() {
                 ref={hamburgerRef}
                 className={cn(
                   'md:hidden p-2 min-w-[44px] min-h-[44px] cursor-pointer bg-transparent border-0',
-                  darkHero || scrolled ? 'text-paper' : 'text-foreground'
+                  (darkHero || scrolled ? 'text-paper' : navOnLight ? 'text-[#1a1a2e]' : 'text-foreground')
                 )}
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={t('nav.menu')}
@@ -341,7 +339,7 @@ export function Navbar() {
                 {!homePage && (
                   <span className="font-display text-primary text-lg">{wordmark.main}</span>
                 )}
-                {homePage && <span />}
+                {homePage && <BrandLogo className="size-7 text-gold" />}
                 <button
                   onClick={() => setMobileOpen(false)}
                   className="text-paper/60 hover:text-paper min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer bg-transparent border-0"

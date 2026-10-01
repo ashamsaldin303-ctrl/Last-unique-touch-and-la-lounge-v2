@@ -167,7 +167,7 @@ export default function LutPage() {
       </ErrorBoundary>
 
       {/* === Hero section — title centered, 3D furniture background === */}
-      <div className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-center">
+      <div className="relative min-h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-center bg-[#0f0c07]">
         <div
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
