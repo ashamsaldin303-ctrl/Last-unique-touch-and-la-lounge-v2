@@ -75,6 +75,7 @@ export const metadata: Metadata = {
     icon: [{ url: '/brand-icon.svg', type: 'image/svg+xml' }],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {

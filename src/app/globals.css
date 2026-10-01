@@ -2274,3 +2274,114 @@ body::after {
     background: color-mix(in srgb, var(--color-card) 95%, transparent);
   }
 }
+
+
+/* ============================================================
+   BRAND VEIL — opening ceremony (Superlative Plan A1)
+   ============================================================ */
+
+.brand-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+  animation: veil-lift 1.2s var(--ease-in-out-strong) both;
+}
+.brand-veil[data-brand='lut'] { background: #0f0c07; }
+.brand-veil[data-brand='lalounge'] { background: #150912; }
+.brand-veil[data-brand='birthday'] { background: #17081f; }
+.brand-veil-mark path {
+  stroke-dasharray: 96;
+  stroke-dashoffset: 96;
+  animation: veil-stroke 0.85s var(--ease-out-strong) 0.08s forwards;
+}
+.brand-veil-line {
+  width: 132px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b8915a, transparent);
+  transform: scaleX(0);
+  animation: veil-line 0.8s var(--ease-out-strong) 0.35s forwards;
+}
+@keyframes veil-stroke { to { stroke-dashoffset: 0; } }
+@keyframes veil-line { to { transform: scaleX(1); } }
+@keyframes veil-lift {
+  0%, 68% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-veil { display: none; }
+}
+
+/* ============================================================
+   EDITORIAL SECTION INDEX (Superlative Plan B5)
+   Outlined display numerals — the magazine signature.
+   ============================================================ */
+
+.section-index {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.8rem + 2.4vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0.14em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-primary) 42%, transparent);
+  margin-bottom: 0.4rem;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   FOOTER FINALE — giant outlined wordmark (Superlative Plan B6)
+   ============================================================ */
+
+.footer-finale {
+  padding: 3.5rem 1rem 0;
+  text-align: center;
+  overflow: hidden;
+}
+.footer-wordmark {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 0.6rem + 7.4vw, 7rem);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(184, 145, 90, 0.38);
+  opacity: 0.6;
+  transform: translateY(0.16em);
+}
+
+/* ============================================================
+   PRINT — clean invoice, no chrome (Superlative Plan D13)
+   ============================================================ */
+
+@media print {
+  nav,
+  footer,
+  [class*='fixed'] {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .glass-card,
+  .lux-card,
+  .card-lift,
+  .glow-border {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 10px;
+    color: #555555;
+  }
+}

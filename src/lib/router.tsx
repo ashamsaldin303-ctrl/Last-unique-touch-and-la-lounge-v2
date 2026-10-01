@@ -36,6 +36,7 @@ import {
   type ReactNode,
 } from 'react'
 import { DEFAULT_LOCALE, type Locale, useI18n } from '@/lib/i18n'
+import { resolveBrandFromPath } from '@/lib/brand'
 
 export interface RouteState {
   locale: Locale
@@ -305,7 +306,16 @@ export function RouterProvider({ children }: { children: ReactNode }) {
     setMetaTag('property', 'og:title', meta.title)
     setMetaTag('property', 'og:description', meta.desc)
     const base = `${window.location.origin}${window.location.pathname}`
-    setLinkTag('canonical', `${base}#/${route.locale}${route.path === '/' ? '' : route.path}`)
+    const canonical = `${base}#/${route.locale}${route.path === '/' ? '' : route.path}`
+    setLinkTag('canonical', canonical)
+    setMetaTag('property', 'og:url', canonical)
+    // Browser chrome follows the brand world (Superlative Plan A3)
+    const THEME_BG: Record<string, string> = {
+      lut: '#faf6ef',
+      lalounge: '#150912',
+      birthday: '#ffffff',
+    }
+    setMetaTag('name', 'theme-color', THEME_BG[resolveBrandFromPath(route.path)] ?? '#faf6ef')
   }, [route.path, route.locale])
 
   // Sync initial hash → router (covers deep links — external state sync)

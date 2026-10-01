@@ -14,6 +14,8 @@ interface SectionHeadingProps {
   eyebrow?: string
   title: string
   subtitle?: string
+  /** Editorial outlined numeral (01, 02…) — magazine signature */
+  index?: string
   /** Use light text (for sections over dark 3D backgrounds) */
   light?: boolean
   className?: string
@@ -24,6 +26,7 @@ export function SectionHeading({
   eyebrow,
   title,
   subtitle,
+  index,
   light = false,
   className,
   align = 'center',
@@ -37,6 +40,7 @@ export function SectionHeading({
         className
       )}
     >
+      {index && <div className="section-index" aria-hidden="true">{index}</div>}
       {eyebrow && (
         <div
           className={cn(
@@ -53,7 +57,7 @@ export function SectionHeading({
       )}
       <h2
         className={cn(
-          'font-display text-2xl sm:text-4xl',
+          'font-display t-h2',
           light ? 'text-paper' : 'text-foreground'
         )}
       >

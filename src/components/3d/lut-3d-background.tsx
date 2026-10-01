@@ -644,7 +644,16 @@ export default function Lut3DBackground() {
     // ============================================
     // CLEANUP
     // ============================================
+      /* Battery/thermal care (Superlative Plan C9): freeze the render
+         loop while the tab is hidden; resume seamlessly on return. */
+      const onVisibility = () => {
+        cancelAnimationFrame(animationFrameId)
+        if (!document.hidden) animationFrameId = requestAnimationFrame(animate)
+      }
+      document.addEventListener('visibilitychange', onVisibility)
+
     return () => {
+      document.removeEventListener('visibilitychange', onVisibility)
       cancelAnimationFrame(animationFrameId)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('resize', onResize)

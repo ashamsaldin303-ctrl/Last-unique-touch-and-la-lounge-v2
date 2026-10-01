@@ -10,6 +10,7 @@ import { RouterProvider, useRouter } from '@/lib/router'
 import { ThemeProvider } from 'next-themes'
 import { BrandThemeSetter } from '@/components/providers/brand-theme-setter'
 import { BrandCurtain } from '@/components/providers/brand-curtain'
+import { BrandVeil } from '@/components/providers/brand-veil'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { FloatingWhatsApp } from '@/components/layout/floating-whatsapp'
@@ -118,10 +119,11 @@ function AppShell() {
 
       <BrandThemeSetter />
       <BrandCurtain />
+      <BrandVeil />
       <ScrollProgress />
       <Navbar />
 
-      <main id="main-content" className="flex-1 flex flex-col">
+      <main id="main-content" tabIndex={-1} className="flex-1 flex flex-col focus:outline-none">
         <AnimatePresence mode="wait">
           {/* NOTE: no `filter` in this transition — a lingering blur(0px)
               creates a containing block that breaks `position: fixed` for

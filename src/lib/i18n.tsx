@@ -17,6 +17,7 @@ import {
 } from 'react'
 import arMessages from '@/messages/ar.json'
 import enMessages from '@/messages/en.json'
+import { setFormatLocale } from '@/lib/products'
 
 export type Locale = 'ar' | 'en'
 
@@ -84,6 +85,11 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (stored === 'ar' || stored === 'en') setLocaleState(stored)
   }, [])
+
+  // Keep numeric/currency identity in sync with the UI language.
+  useEffect(() => {
+    setFormatLocale(locale)
+  }, [locale])
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next)

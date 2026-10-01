@@ -442,10 +442,19 @@ const CosmicBackground: React.FC = () => {
 
         renderer.render(scene, camera);
       };
+      /* Battery/thermal care (Superlative Plan C9): freeze the render
+         loop while the tab is hidden; resume seamlessly on return. */
+      const onVisibility = () => {
+        cancelAnimationFrame(animId)
+        if (!document.hidden) animId = requestAnimationFrame(animate)
+      }
+      document.addEventListener('visibilitychange', onVisibility)
+
       animate();
 
       // Cleanup function
       return () => {
+        document.removeEventListener('visibilitychange', onVisibility);
         window.removeEventListener('mousemove', onMouseMove);
         window.removeEventListener('resize', onResize);
         io.disconnect();

@@ -25,6 +25,7 @@ import { useI18n } from '@/lib/i18n'
 import { useRouter } from '@/lib/router'
 import { formatKwd } from '@/lib/products'
 import { Reveal } from '@/components/shared/reveal'
+import { Particles } from '@/components/shared/particles'
 import { Button } from '@/components/ui/button'
 
 const LAST_ORDER_KEY = 'lut_last_order'
@@ -34,15 +35,18 @@ export default function CheckoutSuccessPage() {
   const { navigate } = useRouter()
 
   const [orderId, setOrderId] = useState<string | null>(null)
+  const [method, setMethod] = useState<string | null>(null)
   const [total, setTotal] = useState<number | null>(null)
 
   useEffect(() => {
     try {
       const raw = sessionStorage.getItem(LAST_ORDER_KEY)
       if (raw) {
-        const parsed = JSON.parse(raw) as { orderId?: string; total?: number }
+        const parsed = JSON.parse(raw) as { orderId?: string; total?: number; method?: string }
         // eslint-disable-next-line react-hooks/set-state-in-effect -- one-shot sync from the sessionStorage external store on mount
         if (parsed.orderId) setOrderId(parsed.orderId)
+        const m = typeof parsed.method === 'string' ? parsed.method : null
+        if (m && ['knet', 'transfer', 'cash'].includes(m)) setMethod(m)
         if (typeof parsed.total === 'number' && parsed.total > 0) setTotal(parsed.total)
       }
     } catch {
@@ -67,6 +71,11 @@ export default function CheckoutSuccessPage() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-64 max-w-md rounded-full bg-primary/10 blur-3xl"
       />
+
+      {/* Celebratory gold dust — the journey's emotional peak (B8) */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <Particles count={20} />
+      </div>
 
       {/* Animated success mark — circle + check stroke draw */}
       <motion.div
@@ -113,6 +122,15 @@ export default function CheckoutSuccessPage() {
           {t('checkout.success.title')}
         </h1>
       </Reveal>
+
+      {method && (
+        <Reveal delay={0.22}>
+          <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold text-goldtext">
+            <span className="size-1 rotate-45 bg-primary" aria-hidden="true" />
+            {t('payment.methods.title')}: {t(`payment.methods.${method}`)}
+          </p>
+        </Reveal>
+      )}
 
       {orderId && (
         <Reveal delay={0.2}>

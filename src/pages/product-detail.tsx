@@ -281,6 +281,7 @@ function Gallery({
   const [selected, setSelected] = useState(0)
   const [imgLoaded, setImgLoaded] = useState(false)
   const [zoomed, setZoomed] = useState(false)
+  const touchX = useRef<number | null>(null)
   const frameRef = useRef<HTMLDivElement | null>(null)
   const current = images[selected] ?? null
   const hasImages = images.length > 1
@@ -320,6 +321,30 @@ function Gallery({
   }
 
 
+  /* Touch swipe navigates the lightbox (Superlative Plan C11) */
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchX.current = e.touches[0].clientX
+  }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current === null) return
+    const dx = e.changedTouches[0].clientX - touchX.current
+    touchX.current = null
+    if (Math.abs(dx) > 48) go(dx < 0 ? 1 : -1)
+  }
+
+  /* Preload neighboring images so swipes feel instant */
+  useEffect(() => {
+    if (!zoomed) return
+    for (const i of [selected + 1, selected - 1]) {
+      const src = images[i]
+      if (src) {
+        // NOTE: `Image` is next/image here — use a plain DOM element.
+        const img = document.createElement('img')
+        img.src = src
+      }
+    }
+  }, [zoomed, selected, images])
+
   /* ESC closes the lightbox */
   useEffect(() => {
     if (!zoomed) return
@@ -339,6 +364,8 @@ function Gallery({
       aria-label={productName}
       className="fixed inset-0 z-[95] flex items-center justify-center bg-black/92 p-4 sm:p-10"
       onClick={() => setZoomed(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       <button
         type="button"

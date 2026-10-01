@@ -1063,7 +1063,16 @@ export default function LaLounge3DBackground() {
       // ============================================
       // CLEANUP (returned to React for unmount)
       // ============================================
+      /* Battery/thermal care (Superlative Plan C9): freeze the render
+         loop while the tab is hidden; resume seamlessly on return. */
+      const onVisibility = () => {
+        cancelAnimationFrame(animFrameId)
+        if (!document.hidden) animFrameId = requestAnimationFrame(animate)
+      }
+      document.addEventListener('visibilitychange', onVisibility)
+
       cleanup = () => {
+        document.removeEventListener('visibilitychange', onVisibility)
         cancelAnimationFrame(animFrameId)
         window.removeEventListener('resize', onResize)
         // v41-g2-F1 Fix #2: traverse the scene graph to dispose geometries /

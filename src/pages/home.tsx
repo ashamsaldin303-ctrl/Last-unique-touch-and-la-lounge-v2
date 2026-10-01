@@ -54,6 +54,10 @@ export default function HomePage() {
   })
 
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
+  /* Depth parallax: background orbs sink while the card deck rises,
+     giving the hero a cinematic z-axis (Superlative Plan C10). */
+  const orbsY = useTransform(scrollYProgress, [0, 1], [0, 130])
+  const deckY = useTransform(scrollYProgress, [0, 1], [0, -70])
 
   const brands = [
     {
@@ -112,11 +116,14 @@ export default function HomePage() {
             initializes or when 3D is disabled). Kept behind the 3D canvas. */}
         <div className="absolute inset-0 z-0 pointer-events-none hero-bg-gradient" />
         <div className="absolute inset-0 z-0 pointer-events-none hero-bg-grid" />
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <motion.div
+          style={{ y: orbsY }}
+          className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+        >
           <div className="hero-orb hero-orb-1" />
           <div className="hero-orb hero-orb-2" />
           <div className="hero-orb hero-orb-3" />
-        </div>
+        </motion.div>
 
         {/* 3D cosmic background — renders null when WebGL is unavailable,
             in which case the CSS fallback above remains visible. */}
@@ -156,7 +163,10 @@ export default function HomePage() {
         </motion.div>
 
         {/* === Holo-Chamber Cards (3 brand entries — not branded as any single brand) === */}
-        <div className="relative z-20 flex-1 flex items-center px-3 sm:px-6 lg:px-8 py-0 sm:py-2">
+        <motion.div
+          style={{ y: deckY }}
+          className="relative z-20 flex-1 flex items-center px-3 sm:px-6 lg:px-8 py-0 sm:py-2"
+        >
           <div className="w-full max-w-5xl mx-auto flex flex-col gap-2 md:gap-6 lg:gap-8">
             <ExperienceCard
               category={t('hero.categories.heritage')}
@@ -198,7 +208,7 @@ export default function HomePage() {
               onClick={() => navigate('/your-birthday')}
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Bottom: Stats bar — animated counters (hidden on mobile so the 3
             cards fit without scroll) */}
@@ -267,6 +277,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-24 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
           <SectionHeading
+            index="01"
             title={t('home.showcase.title')}
             subtitle={t('home.showcase.subtitle')}
           />
@@ -339,7 +350,7 @@ export default function HomePage() {
           rows — the 3D preview feature spans a double column) ============ */}
       <section className="py-16 sm:py-24 px-4 bg-background">
         <div className="max-w-6xl mx-auto">
-          <SectionHeading title={t('whyUs.title')} />
+          <SectionHeading index="02" title={t('whyUs.title')} />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {whyUsItems.map((item, i) => {

@@ -94,6 +94,21 @@ export async function checkAvailability(
 }
 
 /** Format KWD (3 decimals). */
+/* Locale-aware KWD formatting (Superlative Plan D12): Arabic-Indic
+   digits + «د.ك» on ar, Latin + «KWD» on en — linguistic identity, not
+   just translation. The active locale is pushed by the I18nProvider. */
+let activeLocale: 'ar' | 'en' = 'ar'
+const fmtCache: Partial<Record<'ar-KW' | 'en-KW', Intl.NumberFormat>> = {}
+
+export function setFormatLocale(locale: 'ar' | 'en'): void {
+  activeLocale = locale
+}
+
 export function formatKwd(amount: number): string {
-  return amount.toFixed(3)
+  const tag = activeLocale === 'ar' ? 'ar-KW' : 'en-KW'
+  fmtCache[tag] ??= new Intl.NumberFormat(tag, {
+    minimumFractionDigits: 3,
+    maximumFractionDigits: 3,
+  })
+  return `${fmtCache[tag].format(amount)} ${activeLocale === 'ar' ? 'د.ك' : 'KWD'}`
 }

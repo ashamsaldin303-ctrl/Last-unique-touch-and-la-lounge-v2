@@ -1,0 +1,27 @@
+{
+  "name": "Last Unique Touch — Luxury Event Rental Kuwait",
+  "short_name": "LUT Luxury",
+  "description": "منصة كويتية فاخرة لتأجير الأثاث ومعدات الفعاليات — ثلاث علامات في تجربة واحدة.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f0c07",
+  "theme_color": "#8b6b3d",
+  "categories": ["shopping", "lifestyle", "business"],
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/brand-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

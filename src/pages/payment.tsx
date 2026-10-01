@@ -96,13 +96,25 @@ export default function PaymentPage() {
 
   const handlePay = useCallback(() => {
     if (phase !== 'form') return
+    // Record the chosen settlement method on the order receipt so the
+    // success page can echo it (Superlative Plan B8).
+    try {
+      const raw = sessionStorage.getItem(LAST_ORDER_KEY)
+      if (raw) {
+        const parsed = JSON.parse(raw) as Record<string, unknown>
+        parsed.method = method
+        sessionStorage.setItem(LAST_ORDER_KEY, JSON.stringify(parsed))
+      }
+    } catch {
+      /* corrupted entry → method echo is optional */
+    }
     setPhase('processing')
     // Simulated gateway round-trip — this is a display-only flow.
     timersRef.current.push(
       setTimeout(() => setPhase('done'), 2200),
       setTimeout(() => navigate('/checkout/success'), 3400)
     )
-  }, [phase, navigate])
+  }, [phase, navigate, method])
 
   /* Redirect / loading guard */
   if (!ready || !order) {
